@@ -46,6 +46,8 @@ def webhook():
                     message_text = messaging_event["message"]["text"]  # the message's text
 
                     #answer=handle_message(message_text)
+                    if edi == None:
+                        edi=chatbot.Edi()
                     answer = edi.respond_to(message)
                     send_message(sender_id, str(recipient_id)+answer)
 

@@ -85,9 +85,7 @@ class Edi(object):
     def handle_message(self,message_text):
         answer="I don't know"
         print message_text
-        if " time" in message_text:
-            answer = "It is " + strftime("%H:%M:%S", gmtime())
-        elif "hi" in message_text or "hello" in message_text:
+        if "hi" in message_text.lower() or "hello" in message_text.lower():
             answer = "Hello to you too. Type a message or a message beginning with 'syn' or a message beginning with 'def'."
         elif "syn" in message_text[:3]:
             print "syn"

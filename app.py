@@ -41,7 +41,6 @@ def webhook():
                     message_text = messaging_event["message"]["text"]  # the message's text
 
                     answer=handle_message(message_text)
-
                     send_message(sender_id, "got it, thanks!\n"+answer)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
@@ -81,7 +80,7 @@ def send_message(recipient_id, message_text):
 
 def handle_message(message_text):
     answer="I don't know"
-    if " time" in message:
+    if " time" in message_text:
         answer = "It is " + strftime("%H:%M:%S", gmtime())
     return answer
 

@@ -45,7 +45,9 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
 
-                    answer = edi.respond_to(message_text)
+                    answer = edi.handle_message(message_text)
+                    log("LOG"+messaging_event["recipient"])
+                   
                     send_message(sender_id, str(recipient_id)+answer)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
@@ -83,11 +85,7 @@ def send_message(recipient_id, message_text):
         log(r.status_code)
         log(r.text)
 
-def handle_message(message_text):
-    answer="I don't know"
-    if " time" in message_text:
-        answer = "It is " + strftime("%H:%M:%S", gmtime())
-    return answer
+
 
 
 def log(message):  # simple wrapper for logging to stdout on heroku
@@ -110,7 +108,7 @@ def ajaxcalc():
      input1=request.form['pig1']
      #print input1
      #input2=int(request.form['pig2'])  
-     result=edi.respond_to(input1)
+     result=edi.handle_message(input1)
      return json.dumps({"result":result})
     else:
         return "error"

@@ -9,7 +9,7 @@ $(function(){
           success:function(json)
           {
             console.log(json.result);  //response from the server given as alert message
-            $("#result").html("Result ="+json.result);
+            $("#result").html(": "+json.result);
 
           }
         

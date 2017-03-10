@@ -55,6 +55,7 @@ class Edi(object):
         for synset in wordnet.synsets(str):
             for item in synset.lemma_names():
                 if item!=str:
+                    item = item.replace("_"," ")
                     syn_set.append(item)
         return syn_set 
 

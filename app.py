@@ -113,6 +113,8 @@ def ajaxcalc():
      input1=request.form['pig1']
      #print input1
      #input2=int(request.form['pig2'])  
+     if edi == None:
+         edi=chatbot.Edi()
      result=edi.respond_to(input1)
      return json.dumps({"result":result})
     else:

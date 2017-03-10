@@ -4,6 +4,7 @@ import json
 
 import requests
 from flask import Flask, request
+from time import gmtime, strftime
 
 app = Flask(__name__)
 
@@ -39,7 +40,10 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
 
+                    answer=handle_message(message_text)
+
                     send_message(sender_id, "got it, thanks!")
+                    send_message(sender_id, answer)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -75,6 +79,10 @@ def send_message(recipient_id, message_text):
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
+
+def handle_message(message_text):
+    if " time" in message:
+        answer = "It is " + strftime("%H:%M:%S", gmtime())
 
 
 def log(message):  # simple wrapper for logging to stdout on heroku

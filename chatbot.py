@@ -85,10 +85,10 @@ class Edi(object):
     def handle_message(self,message_text):
         answer="I don't know"
         print message_text
-        if "hi" in message_text.lower() or "hello" in message_text.lower():
+        if "hello" in message_text.lower():
             answer = "Hello to you too. Type a message or a message beginning with 'syn' or a message beginning with 'def'."
             return answer
-            
+
         if "syn" in message_text[:3]:
             answer = self.get_synonyms_or_def(message_text[3:])
         elif "def" in message_text[:3]:

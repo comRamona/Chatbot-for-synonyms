@@ -78,7 +78,9 @@ class Edi(object):
             else:
                 ans_set=self.definitionlist(inp)
             if len(ans_set)>0:
-                ans.append(random.choice(ans_set))
+                #ans.append(random.choice(ans_set))
+                # most popular
+                ans.append(ans_set[0])
             else:
                 ans.append(inp)
         return " ".join(ans)        

@@ -6,9 +6,12 @@ from time import gmtime, strftime
 import requests
 from flask import Flask, request, render_template
 
+import chatbot
 
 
 app = Flask(__name__)
+
+edi = None
 
 
 @app.route('/', methods=['GET'])
@@ -42,8 +45,9 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
 
-                    answer=handle_message(message_text)
-                    send_message(sender_id, "got it, thanks!\n"+answer)
+                    #answer=handle_message(message_text)
+                    answer = edi.respond_to(message)
+                    send_message(sender_id, str(recipient_id)+answer)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -55,23 +59,6 @@ def webhook():
                     pass
 
     return "ok", 200
-
-@app.route('/pig')
-def signUp():
-    return render_template('pig.html')
-
-@app.route('/ajaxcalc',methods=['POST', 'GET'])
-def ajaxcalc():
-    if request.method=='POST':
-     print "hello"
-     #pig1 and pig2 are sent from the ajax script
-     input1=request.form['pig1']
-     #print input1
-     #input2=int(request.form['pig2'])  
-     result=handle_message(input1)
-     return json.dumps({"result":result})
-    else:
-        return "error"
 
 
 def send_message(recipient_id, message_text):
@@ -109,5 +96,27 @@ def log(message):  # simple wrapper for logging to stdout on heroku
     sys.stdout.flush()
 
 
+
+###########################
+# web interface starts here
+@app.route('/pig')
+def signUp():
+    return render_template('pig.html')
+
+@app.route('/ajaxcalc',methods=['POST', 'GET'])
+def ajaxcalc():
+    if request.method=='POST':
+     print "hello"
+     #pig1 and pig2 are sent from the ajax script
+     input1=request.form['pig1']
+     #print input1
+     #input2=int(request.form['pig2'])  
+     result=edi.respond_to(input1)
+     return json.dumps({"result":result})
+    else:
+        return "error"
+
+
 if __name__ == '__main__':
+    edi=chatbot.Edi()
     app.run(debug=True)

@@ -18,7 +18,7 @@ def verify():
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
 
-    return "Hello world", 200
+    return render_template('pig.html'), 200
 
 
 @app.route('/', methods=['POST'])
@@ -53,6 +53,23 @@ def webhook():
                     pass
 
     return "ok", 200
+
+@app.route('/pig')
+def signUp():
+    return render_template('pig.html')
+
+@app.route('/ajaxcalc',methods=['POST', 'GET'])
+def ajaxcalc():
+    if request.method=='POST':
+     print "hello"
+     #pig1 and pig2 are sent from the ajax script
+     input1=int(request.form['pig1'])
+     print input1
+     input2=int(request.form['pig2'])  
+     result=input1+input2
+     return json.dumps({"result":result})
+    else:
+        return "error"
 
 
 def send_message(recipient_id, message_text):

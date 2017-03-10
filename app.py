@@ -46,7 +46,6 @@ def webhook():
                     message_text = messaging_event["message"]["text"]  # the message's text
 
                     answer = edi.handle_message(message_text)
-                    log("LOG"+messaging_event["recipient"])
                    
                     send_message(sender_id, str(recipient_id)+answer)
 

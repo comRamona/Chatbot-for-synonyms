@@ -1,10 +1,12 @@
 import os
 import sys
 import json
+from time import gmtime, strftime
 
 import requests
-from flask import Flask, request
-from time import gmtime, strftime
+from flask import Flask, request, render_template
+
+
 
 app = Flask(__name__)
 
@@ -63,10 +65,10 @@ def ajaxcalc():
     if request.method=='POST':
      print "hello"
      #pig1 and pig2 are sent from the ajax script
-     input1=int(request.form['pig1'])
-     print input1
-     input2=int(request.form['pig2'])  
-     result=input1+input2
+     input1=request.form['pig1']
+     #print input1
+     #input2=int(request.form['pig2'])  
+     result=handle_message(input1)
      return json.dumps({"result":result})
     else:
         return "error"

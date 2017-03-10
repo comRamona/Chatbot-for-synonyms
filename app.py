@@ -11,7 +11,7 @@ import chatbot
 
 app = Flask(__name__)
 
-edi = None
+edi = chatbot.Edi()
 
 
 @app.route('/', methods=['GET'])
@@ -46,8 +46,6 @@ def webhook():
                     message_text = messaging_event["message"]["text"]  # the message's text
 
                     #answer=handle_message(message_text)
-                    if edi == None:
-                        edi=chatbot.Edi()
                     answer = edi.respond_to(message)
                     send_message(sender_id, str(recipient_id)+answer)
 
@@ -113,8 +111,6 @@ def ajaxcalc():
      input1=request.form['pig1']
      #print input1
      #input2=int(request.form['pig2'])  
-     if edi == None:
-         edi=chatbot.Edi()
      result=edi.respond_to(input1)
      return json.dumps({"result":result})
     else:
@@ -122,5 +118,4 @@ def ajaxcalc():
 
 
 if __name__ == '__main__':
-    edi=chatbot.Edi()
     app.run(debug=True)

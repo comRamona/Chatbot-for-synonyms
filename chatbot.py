@@ -11,7 +11,7 @@ from gensim.models import Word2Vec
 nltk.data.path.append('./my_nltk_data/')
 
 class Edi(object):
-    def __init__(self, file="austen-persuasion.txt"):
+    def __init__(self):
 
         writepath="save.p"
         mode = 'r' if os.path.exists(writepath) else 'wb'

@@ -35,7 +35,10 @@ class Edi(object):
         #input_tokens = filter(lambda x: len(x)>2, input_tokens)
         for inp in input_tokens:
             if len(inp)>2:
-                ans.append(self.model.most_similar(inp,topn=1)[0][0])
+                try:
+                    ans.append(self.model.most_similar(inp,topn=1)[0][0])
+                except:
+                    ans.append(inp)
             else:
                 ans.append(inp)
         # keyword = random.choice(input_tokens)

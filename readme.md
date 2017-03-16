@@ -3,8 +3,7 @@ This is a simple python template that uses Flask to build a webhook for Facebook
 
 Based on  [this](https://blog.hartleybrody.com/fb-messenger-bot/).
 
-[Edi The Best Bot's Fb page](https://www.facebook.com/edithebestbot/)
-[Edi's website](https://edi-the-best-bot.herokuapp.com)
+## need to setup a fb page, fb app an link them to heroku
 
 # "Messages"
 
